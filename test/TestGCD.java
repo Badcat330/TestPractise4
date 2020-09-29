@@ -38,6 +38,7 @@ public class TestGCD {
     @Test
     void TrevialTest() {
         Assertions.assertEquals(6, gcd.gcd(18, 42));
+        Assertions.assertEquals(6, gcd.gcd(42, 18));
     }
 
     @Test
