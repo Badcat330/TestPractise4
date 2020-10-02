@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class TestGCD {
     public static final int TEST_COUNT = 100;
+    public static final int RANDOM_BOUND = 100;
+
 
     GCD gcd;
     int x, y, answer;
@@ -27,8 +29,8 @@ public class TestGCD {
     @BeforeEach
     void Init() {
         gcd = new GCD();
-        x = rand.nextInt(100) + 1;
-        y = rand.nextInt(100) + 1;
+        x = rand.nextInt(RANDOM_BOUND) + 1;
+        y = rand.nextInt(RANDOM_BOUND) + 1;
         answer = gcd.gcd(x, y);
     }
 
