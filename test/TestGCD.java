@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Random;
 
 public class TestGCD {
+    public static final int TEST_COUNT = 100;
+
     GCD gcd;
     int x, y, answer;
     static Random rand;
@@ -25,8 +27,8 @@ public class TestGCD {
     @BeforeEach
     void Init() {
         gcd = new GCD();
-        x = rand.nextInt() + 1;
-        y = rand.nextInt() + 1;
+        x = rand.nextInt(100) + 1;
+        y = rand.nextInt(100) + 1;
         answer = gcd.gcd(x, y);
     }
 
@@ -43,30 +45,46 @@ public class TestGCD {
 
     @Test
     void DivideLeftTest() {
-        Assertions.assertEquals(0, x % answer);
+        for (int i = 0; i < TEST_COUNT; i++) {
+            Assertions.assertEquals(0, x % answer, String.format("GCD(%s;%s)", x, y));
+            Init();
+        }
     }
 
     @Test
     void DivideRightTest() {
-        Assertions.assertEquals(0, y % answer);
+        for (int i = 0; i < TEST_COUNT; i++) {
+            Assertions.assertEquals(0, y % answer, String.format("GCD(%s;%s)", x, y));
+            Init();
+        }
     }
 
     @Test
     void AnswerPositiveTest() {
-        Assertions.assertTrue(answer > 0);
+        for (int i = 0; i < TEST_COUNT; i++) {
+            Assertions.assertTrue(answer > 0, String.format("GCD(%s;%s)", x, y));
+            Init();
+        }
     }
 
     @Test
     void MaxAnswerTest() {
-        int min = Math.min(x, y);
-        int max = 1;
-        for (int i = 2; i <= min; i++) {
-            if ((x % i) == 0 && (y % i) == 0) {
-                max = i;
-            }
-        }
+        for (int j = 0; j < TEST_COUNT; j++) {
 
-        Assertions.assertEquals(max, answer);
+            if(x < 0) x = -x;
+            if(y < 0) y = -y;
+
+            int min = Math.min(x, y);
+            int max = 1;
+            for (int i = 2; i <= min; i++) {
+                if ((x % i) == 0 && (y % i) == 0) {
+                    max = i;
+                }
+            }
+
+            Assertions.assertEquals(max, answer, String.format("GCD(%s;%s)", x, y));
+            Init();
+        }
     }
 
     @Test
@@ -102,11 +120,15 @@ public class TestGCD {
     @Test
     void SimpleBothTest() {
         Assertions.assertEquals(1, gcd.gcd(8, 7));
+        Assertions.assertEquals(1, gcd.gcd(5, 7));
     }
 
     @Test
     void EqualTest() {
-        Assertions.assertEquals(2, gcd.gcd(2, 2));
+        for (int i = 0; i < TEST_COUNT; i++) {
+            Assertions.assertEquals(x, gcd.gcd(x, x), String.format("GCD(%s;%s)", x, x));
+            Init();
+        }
     }
 
     @Test
